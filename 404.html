@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Turing Game</title>
+</head>
+<body>
+    <script>
+        let urlPrefix = '/turing' // NOTE: Change this to '' when on local. see src/main.js for details
+        let args = location.pathname.substring( urlPrefix.length+1 )
+        window.location = `${urlPrefix}/#${args}`
+    </script>
+</body>
+</html>
