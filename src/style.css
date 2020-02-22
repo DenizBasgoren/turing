@@ -91,9 +91,12 @@ body.dark button:hover {
 }
 
 input:hover,
-textarea:hover,
 button:hover {
     background: rgba(0,0,0,.15);
+}
+
+textarea:hover {
+    background: rgba(0,0,0,.05);
 }
 
 .Header {
@@ -164,6 +167,10 @@ body.dark .Header svg path {
         order: 3;
         justify-content: start;
     }
+
+    .Input .errorMessage {
+        height: 100px;
+    }
 }
 
 @media only screen and (min-width: 1000px) {
@@ -187,6 +194,10 @@ body.dark .Header svg path {
     .TestInstance .status > div:nth-child(6) {
         flex-basis: 50%;
         justify-content: start;
+    }
+
+    .Input .errorMessage {
+        height: 70px;
     }
 }
 
@@ -326,6 +337,7 @@ body.dark .MenuPage .tick {
 
 .Input textarea {
     width: 75%;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .Input table {
@@ -402,9 +414,6 @@ body.dark .green {
     padding-top: 10px;
 }
 
-.Input .errorMessage {
-    height: 70px;
-}
 
 .LevelPage {
     display: flex;

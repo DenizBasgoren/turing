@@ -11,6 +11,10 @@ module.exports = function () {
     generate_test_rules(testRules);
 
     for (const key in testRules) {
+
+        // bugfix: if inherited, skip
+        if ( !testRules.hasOwnProperty(key) ) continue
+
         for (let i = 0; i < testRules[key].D; i++) {
             const game = generate_draw_game(key);
             const tape = generate_tape(game);
@@ -141,6 +145,10 @@ function check_diagonals(table) {
 function generate_test_rules(template) {
     const amounts = [12, 13];
     for (const sizeKey in template) {
+
+        // bugfix: if inherited, skip
+        if ( !template.hasOwnProperty(sizeKey) ) continue
+
         const status = template[sizeKey];
         const randomAmountIndex = Math.floor(Math.random() * 2);
         const randomAmount = amounts[randomAmountIndex];

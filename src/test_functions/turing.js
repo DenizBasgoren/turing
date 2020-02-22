@@ -1,10 +1,12 @@
 
+const LOOP_LIMIT = 20
+
 function generateInstruction() {
     let instruction = []
 
-    instruction[0] = pickOneFrom('a','b','c','d','e','f','g','h','i')
+    instruction[0] = pickOneFrom('b','i')
     instruction[1] = pickOneFrom('_', '0', '1')
-    instruction[2] = pickOneFrom('a','b','c','d','e','f','g','h')
+    instruction[2] = pickOneFrom('b', 'i', 'a', 'r')
     instruction[3] = pickOneFrom('_', '0', '1')
     instruction[4] = pickOneFrom('R', 'R', 'L')
 
@@ -23,9 +25,16 @@ function randomBetween( from, toExcl) {
 function generateMap( len ) {
     let generated = 0
     let map = {}
+    let acceptingStateExists = false
 
     while (generated !== len) {
         let instruction = generateInstruction()
+
+        if ( !acceptingStateExists && instruction[2] !== 'a') {
+            continue
+        }
+
+        acceptingStateExists = true
 
         if ( !map[`${instruction[0]} ${instruction[1]}`] ) {
             map[`${instruction[0]} ${instruction[1]}`] = instruction
@@ -33,6 +42,13 @@ function generateMap( len ) {
         }
         
     }
+
+    // remove rejecting states
+    Object.values(map).forEach( instruction => {
+        if ( instruction[2] === 'r') {
+            delete map[`${instruction[0]} ${instruction[1]}`]
+        }
+    })
 
     return map
 }
@@ -70,7 +86,7 @@ function simulate(prodMap, tape ) {
     let currentState = 'i'
     let tm = {x: 0, y: 0}
 
-    while ( iteration !== 20) {
+    while ( iteration !== LOOP_LIMIT) {
 
         let nextProd = getNextProduction(tm, prodMap, tape, currentState)
         
@@ -117,7 +133,7 @@ module.exports = function turing () {
 
     while ( tests.length !== 100 ) {
 
-        let prodMap = generateMap( randomBetween(15, 21) )
+        let prodMap = generateMap( randomBetween(1,7) ) // if a-i rand(15,21)
         let tape = generateTape( randomBetween(4,9) )
 
         let test = {
@@ -126,7 +142,7 @@ module.exports = function turing () {
 
         let status = simulate( prodMap, tape)
 
-        if (status.iteration < 5 || status.iteration > 15) {
+        if (status.iteration < 5 || status.iteration >= LOOP_LIMIT-1) {
             continue
         }
 
@@ -158,4 +174,3 @@ module.exports = function turing () {
 
     return tests
 }
-

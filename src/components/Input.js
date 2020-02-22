@@ -38,6 +38,7 @@ export default function Input({text, raw, isEditable, errorMsg, onInput}) {
                 onInput={handleInput}
                 cols="25"
                 rows="10"
+                spellcheck={false}
                 ref={textareaRef}
             >
                 {raw}

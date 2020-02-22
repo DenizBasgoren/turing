@@ -1,7 +1,7 @@
 
 import {useState, useEffect} from 'preact/hooks'
 import {render, h, Fragment} from 'preact'
-import {context, init, urlPrefix} from '../utils/init'
+import {context, init, urlPrefix, currentAppVersion} from '../utils/init'
 import prod from '../utils/productions'
 import Header from './Header'
 import Route from '../components/Route'
@@ -9,6 +9,7 @@ import MenuPage from './MenuPage'
 import LevelPage from './LevelPage'
 import HelpPage from './HelpPage'
 import Credits from '../components/Credits'
+import ScrollToTop from '../components/ScrollToTop'
 
 // topmost component
 export default function App () {
@@ -91,15 +92,15 @@ export default function App () {
             <Header />
             <Route href={/^\/?(?:index\.html)?$/i}>
                 <MenuPage />
-                <Credits />
             </Route>
             <Route href={/^\/?(\d+)\/?$/}>
                 <LevelPage />
             </Route>
             <Route href={/^\/?help\/?$/i}>
                 <HelpPage />
-                <Credits />
             </Route>
+            <Credits version={currentAppVersion} />
+            <ScrollToTop />
         </div>
     </context.Provider>
 }

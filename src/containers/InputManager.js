@@ -98,7 +98,7 @@ export default function InputManager({levelNo}) {
     
         // tape values illegal?
         for (let i = 0; i<parsed.length; i++) {
-            let regex = /^.$/i
+            let regex = /^.{1,2}$/i
             if (!regex.test(parsed[i][1]) ||
             !regex.test(parsed[i][3]) ) {
                 result.errorMsgInd = 22

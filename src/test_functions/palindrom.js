@@ -62,7 +62,7 @@ function generate_palindrom(length) {
   let word = [];
 
   for (let i = 0; i < length; i++) {
-    const char = get_char();
+    const char = pickOneFrom('Y', 'E', 'A');
     word[i] = char;
     word[length - 1 - i] = char;
   }
@@ -73,10 +73,10 @@ function generate_palindrom(length) {
 function generate_non_palindrom(length) {
   let word = [];
   for (let i = 0; i < length; i++) {
-    let char = get_char();
+    let char = pickOneFrom('Y', 'E', 'A');
     if (char === word[length - 1 - i]) {
       do {
-        char = get_char();
+        char = pickOneFrom('Y', 'E', 'A');
       } while (char === word[length - 1 - i]);
     }
     word[i] = char;
@@ -95,11 +95,13 @@ function generate_odd_number() {
   return Math.floor(Math.random() * 4) * 2 + 1;
 }
 
-function get_char() {
-  const num = Math.floor(Math.random() * 26) + 65;
-  const char = String.fromCharCode(num);
 
-  return char;
+function pickOneFrom(...arr) {
+  return arr[ randomBetween(0, arr.length) ]
+}
+
+function randomBetween( from, toExcl) {
+  return Math.floor( Math.random() * (toExcl - from) + from)
 }
 
 function generate_tape(word) {

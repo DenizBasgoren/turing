@@ -12,7 +12,7 @@ let languages = ['EN', 'TR']
 let levelCount = 10
 // this is needed by LevelPage to display correct amount of levels
 
-let currentAppVersion = '1.1.3'
+let currentAppVersion = '1.2'
 // app's version will always be saved on localStorage.version. This is for integrity
 
 // if current version doesnt match the saved version (last version), make these changes

@@ -11,7 +11,7 @@ import TestInstance from '../components/TestInstance'
 
 
 
-export default function TestManager({levelNo}) {
+export default function TestManager({levelNo, onTestsReady}) {
     let [g,gg] = useContext(context)
     let [testResults, setTestResults] = useState([]) // signature [Boolean]
     let [tests, setTests] = useState([]) // signature [Test] (see main.js)
@@ -26,8 +26,9 @@ export default function TestManager({levelNo}) {
     // })
 
     useEffect(() => {
-        let tests = test_functions[levelNo-1]()
-        setTests( tests.shuffle() )
+        let tests = test_functions[levelNo-1]().shuffle()
+        setTests( tests )
+        onTestsReady( tests[0] )
     }, [levelNo])
 
     useEffect(() => {
@@ -109,7 +110,7 @@ export default function TestManager({levelNo}) {
                 </button>
                 {
                     testerStatus === 1 && <>
-                        <Interval callback={handleInterval} delay={10} />
+                        <Interval callback={handleInterval} delay={1} />
                         <p> {g.text[29]} </p>
                     </>
                 }
